@@ -8,7 +8,17 @@ from getch import getch
 from dungeon_generator import *
 import asciiart
 import random, time, sys
-from ai import USE_AI, STORY_MODE
+from docopt import docopt
+
+doc = """
+Usage:
+    driver.py
+    driver.py (-b <n> | --batch <n>) [-s | --seed]
+
+Options:
+    -b <n>, --batch <n>  Run the game back to back <n> times
+    -s, --seed  Run the game using a seed
+"""
 
 DIRS = {
     'w': 'UP',
@@ -17,8 +27,13 @@ DIRS = {
     'd': 'RIGHT',
 }
 
-if __name__ == "__main__":
-    random.seed()         
+def main(seed=None):
+    from ai import USE_AI, STORY_MODE
+
+    if seed == None:
+        random.seed()
+    else:
+        random.seed(seed)
 
     if STORY_MODE:
         pass #entranceAnimation()
@@ -139,15 +154,47 @@ if __name__ == "__main__":
             else:
                 print " " * 60 + str(e)
             for i in range(22): print
-            sys.exit()
+            if not STORY_MODE:
+                return game.level
+            else:
+                return 0
+            # sys.exit()
         except Victory as e:
             # exitAnimation()
             for i in range(22): print
             print " " * 60 + str(e)
             for i in range(22): print
-            sys.exit()
+            # sys.exit()
+            return 1
         except Quit as e:
             break
 
     # user quit the game
     print "Bye"
+    return 0
+
+if __name__ == "__main__":
+    from ai import STORY_MODE
+
+    args = docopt(doc)
+    numGames = 1
+    if '--batch' in args:
+        try:
+            numGames = int(args['--batch'])
+        except:
+            numGames = 1
+    if numGames == 1:
+        main()
+    else:
+        gameReturns = []
+        for i in range(numGames):
+            if ('-s' in args and args['-s']) or \
+                ('--seed' in args and args['--seed']):
+                gameReturns.append(main(i))
+            else:
+                gameReturns.append(main())
+        
+        if STORY_MODE:
+            print 'Your AI completed {0:.2f}% runs of story mode!'.format(sum(gameReturns) / float(numGames) * 100)
+        else:
+            print 'Your AI completed an average of {0:.2f} levels of gauntlet mode (over {1} runs)'.format(sum(gameReturns) / float(numGames), numGames)
