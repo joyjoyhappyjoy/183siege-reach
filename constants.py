@@ -73,35 +73,35 @@ ITEM_START_VALUES = {
     "Fireballs": 7,
 }
 
-STARTING_WEAPON_DURABILITY = 35
+STARTING_WEAPON_DURABILITY = 75
 ITEM_DURABILITIES = {
     # Base lvl items
-    "Knife": 15,
-    "Flimsy Shield": 12,
+    "Knife": 45,
+    "Flimsy Shield": 40,
     # Low lvl items
-    "Smelly Dagger": 25,
-    "Slimy Bow": 25,
-    "Moldy Shield": 25,
+    "Smelly Dagger": 40,
+    "Slimy Bow": 40,
+    "Moldy Shield": 40,
     # Low medium items
-    "Rusty Dagger": 25,
-    "Grimy Bow": 25,
-    "Old Shield": 25,
+    "Rusty Dagger": 35,
+    "Grimy Bow": 35,
+    "Old Shield": 35,
     # Medium items
     "Plain Sword": 30,
     "Plain Bow": 30,
     "Buckler": 30,
     # Medium high items
-    "Good Sword": 30,
-    "Strong Bow": 30,
-    "Big Shield": 30,
+    "Good Sword": 25,
+    "Strong Bow": 25,
+    "Big Shield": 25,
     # High items
-    "Club of Whacking": 30,
-    "Powerful Bow": 30,
-    "Brawny Shield": 30,
+    "Club of Whacking": 25,
+    "Powerful Bow": 25,
+    "Brawny Shield": 25,
     # Wolf items
-    "Wolf Claws": 10,
+    "Wolf Claws": 20,
     # Dragon items
-    "Dragon Claws": 7,
+    "Dragon Claws": 15,
     "Dragonhide Shield": 20,
     # Steve-n-Dorf items
     "Autograder": 20
