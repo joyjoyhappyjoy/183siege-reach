@@ -5,9 +5,9 @@ from constants import STARTING_WEAPON_DURABILITY
 class Inventory(object):
     def __init__(self):
         self.main_hand = RangedWeapon("BOW", "Wooden Bow", 1, STARTING_WEAPON_DURABILITY) #MeleeWeapon("SWORD", "Wooden Sword", 2)
-        self.offhand = None #Defense("SHIELD", "Wooden Shield", 2)
+        self.offhand = None
         self._MAX_ITEMS = 6
-        # self.pack = [MeleeWeapon("SWORD", "Wooden Sword", 2, 10),Defense("SHIELD", "Wooden Shield", 2, 15),MeleeWeapon("SWORD", "Wooden Sword", 2, 10),MeleeWeapon("SWORD", "Wooden Sword", 2, 10),MeleeWeapon("SWORD", "Wooden Sword", 2, 10),]
+        # self.pack = [MeleeWeapon("SWORD", "Wooden Sword", 2, 10),Defense("SHIELD", "Wooden Shield", 2, 15),MeleeWeapon("SWORD", "Wooden Sword", 2, 10),MeleeWeapon("SWORD", "Wooden Sword", 2, 10),]
         self.pack = []
         self.next_attack = 0
         self.miscitems = {
@@ -17,7 +17,7 @@ class Inventory(object):
         }
 
     def equip_main_hand(self, item):
-        if not self.has_inventory_space():
+        if not self.main_hand and not self.has_inventory_space():
             self.pack.pop()
         if isinstance(item, RangedWeapon):
             self.main_hand = item
@@ -33,7 +33,7 @@ class Inventory(object):
             raise Exception("Equipped item has invalid type")
     
     def equip_offhand(self, item):
-        if not self.has_inventory_space():
+        if not self.offhand and not self.has_inventory_space():
             self.pack.pop()
         if isinstance(item, RangedWeapon):
             self.equip_main_hand(item)
