@@ -326,6 +326,7 @@ class Game(object):
         # set environment variables
         self.printScreen()
 
+        self.seerdata.current_block = self.seerdata.get_block()
         will_escape = self.seerdata.get_escape()
         decisions = [x for x in self._getUserMove()]
         playerDamage = 0
@@ -424,7 +425,7 @@ class Game(object):
             if not self.escapes_remaining: self.messages.append("You don't have any more Babylon Candles!")
             else:
                 self.escapes_remaining -= 1
-                if will_escape:
+                if not will_escape:
                     self.messages.append("You failed to escape!")
                 else:
                     self.messages.append("You escaped using a Babylon Candle!")
@@ -531,7 +532,6 @@ class Game(object):
                         while not self.playerTurn():  # Loop on invalid moves
                             self.swap_weapon_to = None # Clear swap hand state
                             self.printScreen()
-                        self.seerdata.current_block = self.seerdata.get_block()
                         self.swap_weapon_to = None # Clear swap hand state
                         if self.inventory.get_equipped_ranged():
                             self.inventory.next_attack = self.seerdata.get_player_attack()
@@ -551,7 +551,6 @@ class Game(object):
                     while not self.playerTurn():  # Loop on invalid moves
                         self.swap_weapon_to = None # Clear swap hand state
                         self.printScreen()
-                    self.seerdata.current_block = self.seerdata.get_block()
                     self.swap_weapon_to = None # Clear swap hand state
                     self.inventory.next_attack = self.seerdata.get_player_attack()
                     self.inventory.check_durability()
